@@ -24,8 +24,9 @@ export const HomePage: NextPage = () => {
           <Alert severity="info">
             <AlertTitle>このサイトについて</AlertTitle>
             パーツごとにみんなが好きなものを投票し、それをランキング形式で発表するサイトです。
-            <br />
             凝りっ凝りの変態玄人さんからド素人さんまで、どうぞご活用ください。
+            <br />
+            また現在このサイトはテスト段階にあり、予告なくランキングのリセット、ユーザデータの削除、その他の変更を加える場合があります。
           </Alert>
         </Container>
         <Box my={3}>
