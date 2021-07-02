@@ -169,7 +169,11 @@ export const PartListPage: NextPage = () => {
               <>
                 {pages[page - 1].map((p) => (
                   <Box key={p.id} my={2}>
-                    <PartCard part={p} totalInType={voteStatus[p.type]} />
+                    <PartCard
+                      part={p}
+                      totalInType={voteStatus[p.type]}
+                      onUpdate={() => updateParts(type)}
+                    />
                   </Box>
                 ))}
 
