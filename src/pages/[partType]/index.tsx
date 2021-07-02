@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { animateScroll as scroll } from 'react-scroll'
 import { Typography, Box, TextField, Grid, Button } from '@material-ui/core'
-import { ArrowUpward, ArrowDownward } from '@material-ui/icons'
+import { ArrowUpward, ArrowDownward, Home } from '@material-ui/icons'
 import { useAuth } from '../../hooks/useAuth'
 import { MainLayout } from '../../layouts/MainLayout'
 import {
@@ -17,8 +17,15 @@ import {
 import { PartCard } from '../../components/PartCard'
 import ErrorPage from 'next/error'
 import { client } from '../../client/client'
-import { Autocomplete, Pagination, Skeleton } from '@material-ui/lab'
+import {
+  Alert,
+  Autocomplete,
+  Pagination,
+  Skeleton,
+  AlertTitle,
+} from '@material-ui/lab'
 import { chunk } from '../../helpers/chunk'
+import Link from 'next/link'
 
 type SortMode = 'vote-desc' | 'vote-asc'
 
@@ -94,73 +101,91 @@ export const PartListPage: NextPage = () => {
       </Typography>
 
       {parts && voteStatus && !jwtChecking ? (
-        <>
-          <Box my={2}>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={8}>
-                <Autocomplete
-                  options={parts.map(({ name }) => name)}
-                  getOptionLabel={(name) => name}
-                  inputValue={search}
-                  onInputChange={(_, value) => setSearch(value ?? '')}
-                  onChange={(_, value) => setSearch(value ?? '')}
-                  freeSolo
-                  onOpen={() => setSearchFocus(true)}
-                  onClose={() => setSearchFocus(false)}
-                  renderInput={(params) => (
-                    <TextField {...params} label="検索" variant="filled" />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Button
-                  className="toggle-sort-mode"
-                  size="large"
-                  fullWidth
-                  variant="contained"
-                  disableElevation
-                  startIcon={
-                    sortMode === 'vote-desc' ? (
-                      <ArrowUpward />
-                    ) : (
-                      <ArrowDownward />
-                    )
-                  }
-                  onClick={() =>
-                    setSortMode((mode) =>
-                      mode === 'vote-desc' ? 'vote-asc' : 'vote-desc'
-                    )
-                  }
-                >
-                  {sortMode === 'vote-desc' ? '投票が多い順' : '投票が少ない順'}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-          {!searchFocus && (
-            <>
-              {pages[page - 1].map((p) => (
-                <Box key={p.id} my={2}>
-                  <PartCard part={p} totalInType={voteStatus[p.type]} />
-                </Box>
-              ))}
-
-              <Box my={4}>
-                <Grid container justify="center">
-                  <Pagination
-                    count={pages.length}
-                    color="primary"
-                    page={page}
-                    onChange={(_, page) => {
-                      scroll.scrollToTop({ duration: 300 })
-                      setPage(page)
-                    }}
+        parts.length === 0 ? (
+          <Alert severity="info">
+            <AlertTitle>データがありません。</AlertTitle>
+            <Link href="/">
+              <Button
+                variant="contained"
+                disableElevation
+                color="primary"
+                startIcon={<Home />}
+              >
+                ホームに戻る
+              </Button>
+            </Link>
+          </Alert>
+        ) : (
+          <>
+            <Box my={2}>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12} md={8}>
+                  <Autocomplete
+                    options={parts.map(({ name }) => name)}
+                    getOptionLabel={(name) => name}
+                    inputValue={search}
+                    onInputChange={(_, value) => setSearch(value ?? '')}
+                    onChange={(_, value) => setSearch(value ?? '')}
+                    freeSolo
+                    onOpen={() => setSearchFocus(true)}
+                    onClose={() => setSearchFocus(false)}
+                    renderInput={(params) => (
+                      <TextField {...params} label="検索" variant="filled" />
+                    )}
                   />
                 </Grid>
-              </Box>
-            </>
-          )}
-        </>
+                <Grid item xs={12} md={4}>
+                  <Button
+                    className="toggle-sort-mode"
+                    size="large"
+                    fullWidth
+                    variant="contained"
+                    disableElevation
+                    startIcon={
+                      sortMode === 'vote-desc' ? (
+                        <ArrowUpward />
+                      ) : (
+                        <ArrowDownward />
+                      )
+                    }
+                    onClick={() =>
+                      setSortMode((mode) =>
+                        mode === 'vote-desc' ? 'vote-asc' : 'vote-desc'
+                      )
+                    }
+                  >
+                    {sortMode === 'vote-desc'
+                      ? '投票が多い順'
+                      : '投票が少ない順'}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+            {!searchFocus && (
+              <>
+                {pages[page - 1].map((p) => (
+                  <Box key={p.id} my={2}>
+                    <PartCard part={p} totalInType={voteStatus[p.type]} />
+                  </Box>
+                ))}
+
+                <Box my={4}>
+                  <Grid container justify="center">
+                    <Pagination
+                      count={pages.length}
+                      color="primary"
+                      page={page}
+                      onChange={(_, page) => {
+                        scroll.scrollToTop({ duration: 300 })
+                        setPage(page)
+                      }}
+                    />
+                  </Grid>
+                </Box>
+              </>
+            )}
+          </>
+        )
       ) : (
         <>
           {[...Array(5)].map((_, key) => (
