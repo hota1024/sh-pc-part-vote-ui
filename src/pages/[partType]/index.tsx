@@ -33,7 +33,7 @@ type SortMode = 'vote-desc' | 'vote-asc'
  * PartList page.
  */
 export const PartListPage: NextPage = () => {
-  const { jwtChecking } = useAuth()
+  const { jwtChecking, user } = useAuth()
   const router = useRouter()
   const [type, setType] = useState<PartType>()
   const [notFound, setNotFound] = useState(false)
@@ -99,6 +99,10 @@ export const PartListPage: NextPage = () => {
       <Typography variant="h6" align="center">
         {voteStatus && `現在${voteStatus[type]}票`}
       </Typography>
+
+      {!user && (
+        <Alert severity="warning">投票するにはサインインしてください。</Alert>
+      )}
 
       {parts && voteStatus && !jwtChecking ? (
         parts.length === 0 ? (
