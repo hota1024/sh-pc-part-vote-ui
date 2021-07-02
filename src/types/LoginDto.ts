@@ -1,7 +1,7 @@
 /**
- * LoginDto class.
+ * LoginDto type.
  */
-export class LoginDto {
+export type LoginDto = {
   email: string
   password: string
 }
