@@ -17,7 +17,7 @@ export const MainLayout: React.VFC<MainLayoutProps> = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Link href="/">
-            <Button color="inherit">PCパーツ総選挙</Button>
+            <Button color="inherit">PCパーツ総選挙 テスト版</Button>
           </Link>
           <div style={{ flexGrow: 1 }}></div>
           <Button color="inherit" variant="text" disableElevation>
