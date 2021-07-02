@@ -32,12 +32,6 @@ export const MainLayout: React.VFC<MainLayoutProps> = (props) => {
           <div style={{ flexGrow: 1 }}></div>
           {jwt ? (
             <>
-              <Link href="/profile">
-                <Button color="inherit" variant="text" disableElevation>
-                  マイページ
-                </Button>
-              </Link>
-              <div style={{ padding: '0 8px' }}></div>
               <Button
                 color="secondary"
                 variant="text"
