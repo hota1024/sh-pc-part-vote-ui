@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core'
 import { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -11,7 +12,11 @@ export const HomePage: NextPage = () => {
         <title>home - sh-pc-part-vote-ui</title>
       </Head>
 
-      <div>sh-pc-part-vote-ui</div>
+      <div>
+        <Button color="primary" variant="contained">
+          hello world
+        </Button>
+      </div>
     </>
   )
 }
