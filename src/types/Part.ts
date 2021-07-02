@@ -35,6 +35,13 @@ export type Part = ModelBase & {
   votes: number
 }
 
+/**
+ * VoteStatus type.
+ */
+export type VoteStatus = Record<PartType, number> & {
+  all: number
+}
+
 const partTypeToTextMap: Record<PartType, string> = {
   cpu: 'CPU',
   motherboard: 'マザーボード',
