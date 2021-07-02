@@ -1,11 +1,5 @@
-import {
-  Container,
-  AppBar,
-  Typography,
-  Toolbar,
-  Button,
-  Box,
-} from '@material-ui/core'
+import { Container, AppBar, Toolbar, Button, Box } from '@material-ui/core'
+import Link from 'next/link'
 
 /**
  * MainLayout props.
@@ -22,7 +16,9 @@ export const MainLayout: React.VFC<MainLayoutProps> = (props) => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography>PCパーツ総選挙</Typography>
+          <Link href="/">
+            <Button color="inherit">PCパーツ総選挙</Button>
+          </Link>
           <div style={{ flexGrow: 1 }}></div>
           <Button color="inherit" variant="text" disableElevation>
             サインイン
