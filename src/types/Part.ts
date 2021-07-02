@@ -34,3 +34,24 @@ export type Part = ModelBase & {
   name: string
   votes: number
 }
+
+const partTypeToTextMap: Record<PartType, string> = {
+  cpu: 'CPU',
+  motherboard: 'マザーボード',
+  cpuCooler: 'CPUファン',
+  pcCase: 'PCケース',
+  pcCooler: 'PCケースファン',
+  gpu: 'GPU',
+  rom: 'ストレージ/ROM',
+  ram: 'メモリ/RAM',
+  powerSupply: '電源',
+}
+
+/**
+ * returns part type text.
+ *
+ * @param type type.
+ */
+export const partTypeToText = (type: PartType): string => {
+  return partTypeToTextMap[type]
+}
